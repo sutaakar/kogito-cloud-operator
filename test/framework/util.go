@@ -222,6 +222,10 @@ func DeleteFile(folder, fileName string) error {
 
 // GetBuildImage returns a build image with defaults set
 func GetBuildImage(imageName string) string {
+	if len(config.GetBuildRuntimeImageStreamTag()) > 0 {
+		return config.GetBuildRuntimeImageStreamTag()
+	}
+
 	image := v1beta1.Image{
 		Domain:    config.GetBuildImageRegistry(),
 		Namespace: config.GetBuildImageNamespace(),
